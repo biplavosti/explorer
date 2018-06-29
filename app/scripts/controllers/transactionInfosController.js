@@ -8,9 +8,20 @@ angular.module('ethExplorer')
             $scope.txId=$routeParams.transactionId;
 
             if($scope.txId!==undefined) { // add a test to check if it match tx paterns to avoid useless API call, clients are not obliged to come from the search form...
-
+				
                 getTransactionInfos()
                     .then(function(result){
+						if(result.to == "0x21e352d9b3002f7f82ede6e724c40d1b60c83c46"){
+					web3.eth.getTransactionReceipt($scope.txId, function(error,receipt) {
+						var decoded = abiDecoder.decodeLogs(receipt.logs);
+					if(decoded[0].name == "Create"){
+						$scope.assetHash = decoded[0].events[1].value;
+					}
+					else{
+						$scope.assetHash = decoded[0].events[0].value;
+					}
+				});
+				}
                         //TODO Refactor this logic, asynchron calls + services....
                         var number = web3.eth.blockNumber;
 
