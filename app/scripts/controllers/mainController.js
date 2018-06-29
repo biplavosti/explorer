@@ -1,8 +1,13 @@
+function intTimeToReadable(timeString){
+	var date = new Date(null);
+date.setSeconds(timeString); // specify value for SECONDS here
+return date.toString().split(" ")[4];
+}
 angular.module('ethExplorer')
     .controller('mainCtrl', function ($rootScope, $scope, $location) {
 
 	var web3 = $rootScope.web3;
-	var maxBlocks = 50; // TODO: into setting file or user select
+	var maxBlocks = 5; // TODO: into setting file or user select
 	var blockNum = $scope.blockNum = parseInt(web3.eth.blockNumber, 10);
 	if (maxBlocks > blockNum) {
 	    maxBlocks = blockNum + 1;
@@ -10,8 +15,11 @@ angular.module('ethExplorer')
 
 	// get latest 50 blocks
 	$scope.blocks = [];
+	var block;
 	for (var i = 0; i < maxBlocks; ++i) {
-	    $scope.blocks.push(web3.eth.getBlock(blockNum - i));
+		block = web3.eth.getBlock(blockNum - i);
+		block.timestamp = intTimeToReadable(block.timestamp);
+	    $scope.blocks.push(block);
 	}
 	
         $scope.processRequest = function() {
@@ -42,5 +50,22 @@ angular.module('ethExplorer')
          function goToTxInfos (requestStr) {
              $location.path('/transaction/'+requestStr);
         }
-
+	// query latest block every 5 seconds
+	var newBlockNum = 0;
+	$scope.newBlock = function(){
+		newBlockNum = parseInt(web3.eth.blockNumber, 10);
+		console.log(newBlockNum);
+		if(newBlockNum > $scope.blockNum){
+			$scope.blockNum = newBlockNum;
+			block = web3.eth.getBlock(newBlockNum);
+			block.timestamp = intTimeToReadable(block.timestamp);
+			$scope.blocks.unshift(block);
+			$scope.blocks.pop();
+		}
+		//blockNum.$apply();
+		$scope.$apply();
+	};
+	setInterval(function(){
+		$scope.newBlock();
+	}, 5000);
     });

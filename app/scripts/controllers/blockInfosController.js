@@ -99,7 +99,21 @@ angular.module('ethExplorer')
                 gas: result.gas,
                 input: result.input,
                 value: result.value
-              }
+              };
+			  
+			  if(transaction.to == "0x21e352d9b3002f7f82ede6e724c40d1b60c83c46"){
+				web3.eth.getTransactionReceipt(transaction.hash, function(error,receipt) {
+					console.log(receipt);
+					var decoded = abiDecoder.decodeLogs(receipt.logs);
+					if(decoded[0].name == "Create"){
+						console.log("hashahash");
+						console.log(decoded[0].events[1].value);
+						transaction["assetHash"] = decoded[0].events[1].value;
+					}
+				});
+			  }
+			  
+			  
               $scope.$apply(
                 $scope.transactions.push(transaction)
               )
