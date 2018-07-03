@@ -11,16 +11,12 @@ angular.module('ethExplorer')
 				
                 getTransactionInfos()
                     .then(function(result){
-						if(result.to == "0x21e352d9b3002f7f82ede6e724c40d1b60c83c46"){
+						if(result.to == "0xf765140dd489272445c49371eac92d6FAAae6C89".toLowerCase()){
 					web3.eth.getTransactionReceipt($scope.txId, function(error,receipt) {
 						var decoded = abiDecoder.decodeLogs(receipt.logs);
-					if(decoded[0].name == "Create"){
-						$scope.assetHash = decoded[0].events[1].value;
-					}
-					else{
+						console.log(decoded);
 						$scope.assetHash = decoded[0].events[0].value;
-					}
-				});
+					});
 				}
                         //TODO Refactor this logic, asynchron calls + services....
                         var number = web3.eth.blockNumber;
