@@ -5,7 +5,7 @@ angular.module('ethExplorer')
 
         $scope.init = function()
         {
-
+			$scope.assetManagerAddress = assetManagerAddress;
             $scope.blockId = $routeParams.blockId;
 
             if($scope.blockId!==undefined) {
@@ -101,7 +101,7 @@ angular.module('ethExplorer')
                 value: result.value
               };
 			  
-			  if(transaction.to == "0xf765140dd489272445c49371eac92d6FAAae6C89".toLowerCase()){
+			  if(transaction.to == assetManagerAddress){
 				web3.eth.getTransactionReceipt(transaction.hash, function(error,receipt) {
 					console.log(receipt);
 					var decoded = abiDecoder.decodeLogs(receipt.logs);

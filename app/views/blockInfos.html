@@ -81,7 +81,7 @@
               <td>Hash #</td>
               <td><a href="./#/transaction/{{tx.hash}}">{{tx.hash}}</a></td>
           </tr>
-		  <tr ng-if="tx.to == '0xf765140dd489272445c49371eac92d6FAAae6C89'.toLowerCase()">
+		  <tr ng-if="tx.to == assetManagerAddress">
               <td>Asset Hash</td>
               <td><a href="./#/transaction/{{tx.hash}}">{{tx.assetHash}}</a></td>
           </tr>

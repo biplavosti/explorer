@@ -5,13 +5,14 @@ angular.module('ethExplorer')
 	
         $scope.init=function()
         {
+			$scope.assetManagerAddress = assetManagerAddress;
             $scope.txId=$routeParams.transactionId;
 
             if($scope.txId!==undefined) { // add a test to check if it match tx paterns to avoid useless API call, clients are not obliged to come from the search form...
 				
                 getTransactionInfos()
                     .then(function(result){
-						if(result.to == "0xf765140dd489272445c49371eac92d6FAAae6C89".toLowerCase()){
+						if(result.to == assetManagerAddress){
 					web3.eth.getTransactionReceipt($scope.txId, function(error,receipt) {
 						var decoded = abiDecoder.decodeLogs(receipt.logs);
 						console.log(decoded);
