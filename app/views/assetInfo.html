@@ -1,0 +1,34 @@
+	<div class="container" style="padding-top: 50px;">
+        <table class="table table-striped">
+            <tbody><tr>
+                <th colspan="2" style="text-align:left">Summary</th>
+            </tr>
+            <tr>
+                <td>Block Hash</td>
+                <td><a href="./#/block/{{block.hash}}">{{block.hash}}</a></td>
+            </tr>
+			<tr>
+                <td>Asset Hash</td>
+                <td><a href="./#/asset/{{asset.assetHash}}">{{asset.assetHash}}</a></td>
+            </tr>
+            <tr ng-repeat="item in asset.fileHashes;">
+                <td>File Hash</td>
+                <td>
+                    {{item}}
+                </td>
+            </tr>
+			<tr ng-repeat="item in asset.confirmatoryNotes">
+                <td>Confirmatory Event Hash</td>
+                <td>
+                    {{item}}
+                </td>
+            </tr>
+            <tr>
+                <td>Included In Block</td>
+                <td>
+                    <a href="./#/block/{{block.number}}">{{block.number}}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>

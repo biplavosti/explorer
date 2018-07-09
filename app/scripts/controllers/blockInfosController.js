@@ -103,9 +103,9 @@ angular.module('ethExplorer')
 			  
 			  if(transaction.to == assetManagerAddress){
 				web3.eth.getTransactionReceipt(transaction.hash, function(error,receipt) {
-					console.log(receipt);
+					//console.log(receipt);
 					var decoded = abiDecoder.decodeLogs(receipt.logs);
-					console.log(decoded);
+					//console.log(decoded);
 					transaction["assetHash"] = decoded[0].events[0].value;
 				});
 			  }
