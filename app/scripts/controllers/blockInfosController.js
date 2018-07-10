@@ -37,7 +37,7 @@ angular.module('ethExplorer')
                     $scope.number = result.number;
                     $scope.parentHash = result.parentHash;
                     $scope.blockNumber = result.number;
-                    $scope.timestamp = result.timestamp;
+                    $scope.timestamp = intTimeToReadableLong(result.timestamp);
                     $scope.extraData = result.extraData;
                     $scope.dataFromHex = hex2a(result.extraData);
                     $scope.size = result.size;
@@ -105,7 +105,7 @@ angular.module('ethExplorer')
 				web3.eth.getTransactionReceipt(transaction.hash, function(error,receipt) {
 					//console.log(receipt);
 					var decoded = abiDecoder.decodeLogs(receipt.logs);
-					//console.log(decoded);
+					console.log(decoded);
 					transaction["assetHash"] = decoded[0].events[0].value;
 				});
 			  }

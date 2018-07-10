@@ -1,8 +1,4 @@
-function intTimeToReadable(timeString){
-	var date = new Date(null);
-date.setSeconds(timeString); // specify value for SECONDS here
-return date.toString().split(" ")[4];
-}
+
 angular.module('ethExplorer')
     .controller('mainCtrl', function ($rootScope, $scope, $location) {
 
@@ -18,7 +14,7 @@ angular.module('ethExplorer')
 	var block;
 	for (var i = 0; i < maxBlocks; ++i) {
 		block = web3.eth.getBlock(blockNum - i);
-		block.timestamp = intTimeToReadable(block.timestamp);
+		block.timestamp = intTimeToReadableShort(block.timestamp);
 	    $scope.blocks.push(block);
 	}
 	
@@ -58,7 +54,7 @@ angular.module('ethExplorer')
 		if(newBlockNum > $scope.blockNum){
 			$scope.blockNum = newBlockNum;
 			block = web3.eth.getBlock(newBlockNum);
-			block.timestamp = intTimeToReadable(block.timestamp);
+			block.timestamp = intTimeToReadableShort(block.timestamp);
 			$scope.blocks.unshift(block);
 			$scope.blocks.pop();
 		}

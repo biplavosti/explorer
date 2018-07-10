@@ -3,6 +3,20 @@ var assetManagerABI = JSON.parse('[{"constant":false,"inputs":[{"name":"assetHas
 var assetManagerAddress = "0x516F287E136a79a3bF0073777c878a8a6e8a78e8".toLowerCase();
 abiDecoder.addABI(assetManagerABI);
 var assetManagerInstance;
+
+function intTimeToReadableShort(timeString){
+	var date = new Date(null);
+	date.setSeconds(timeString); // specify value for SECONDS here
+	return date.toString().split(" ")[4];
+}
+
+function intTimeToReadableLong(timeString){
+	var date = new Date(null);
+	date.setSeconds(timeString); // specify value for SECONDS here
+	return date.toString();
+}
+
+
 angular.module('ethExplorer', ['ngRoute','ui.bootstrap'])
 
 .config(['$routeProvider',
