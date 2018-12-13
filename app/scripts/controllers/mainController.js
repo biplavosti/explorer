@@ -14,7 +14,7 @@ angular.module('ethExplorer')
 	var block;
 	for (var i = 0; i < maxBlocks; ++i) {
 		block = web3.eth.getBlock(blockNum - i);
-		block.timestamp = intTimeToReadableShort(block.timestamp);
+		block.timestamp = unixTimeToReadable(block.timestamp);
 	    $scope.blocks.push(block);
 	}
 	
@@ -54,7 +54,7 @@ angular.module('ethExplorer')
 		if(newBlockNum > $scope.blockNum){
 			$scope.blockNum = newBlockNum;
 			block = web3.eth.getBlock(newBlockNum);
-			block.timestamp = intTimeToReadableShort(block.timestamp);
+			block.timestamp = unixTimeToReadable(block.timestamp);
 			$scope.blocks.unshift(block);
 			$scope.blocks.pop();
 		}
