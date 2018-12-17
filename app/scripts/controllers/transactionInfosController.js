@@ -56,7 +56,7 @@ angular.module('ethExplorer')
                     if($scope.blockNumber!==undefined){
                         var info = web3.eth.getBlock($scope.blockNumber);
                         if(info!==undefined){
-                            $scope.time = intTimeToReadableLong(info.timestamp);
+                            $scope.time = unixTimeToReadable(info.timestamp);
                         }
                     }
 
