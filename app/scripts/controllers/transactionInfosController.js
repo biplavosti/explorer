@@ -12,7 +12,7 @@ angular.module('ethExplorer')
 				
                 getTransactionInfos()
                     .then(function(result){
-						if(result.to == assetManagerAddress){
+						if(result.to.toLowerCase() == assetManagerAddress){
 					web3.eth.getTransactionReceipt($scope.txId, function(error,receipt) {
 						var decoded = abiDecoder.decodeLogs(receipt.logs);
 						console.log(decoded);
